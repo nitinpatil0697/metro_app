@@ -30,6 +30,11 @@ public class VendingMachineController {
         return vendingMachineService.getAllTicketsByUserName(userName);
     }
 
+    @GetMapping("allTickets/users")
+    public ResponseEntity<List<String>> getAllTicketsUsers() {
+        return vendingMachineService.getAllTicketsUsers();
+    }
+
     @GetMapping("allStations")
     public ResponseEntity<List<MetroStation>> getAllStations() {
         return vendingMachineService.getAllStations();
@@ -41,7 +46,7 @@ public class VendingMachineController {
     }
 
     @PostMapping("generateTicket")
-    public ResponseEntity<Ticket> generateTicket(@RequestBody GenerateTicketRequest generateTicketRequest)
+    public ResponseEntity<GenerateTicketResponse> generateTicket(@RequestBody GenerateTicketRequest generateTicketRequest)
     {
         return vendingMachineService.generateMetroTicket(generateTicketRequest);
     }

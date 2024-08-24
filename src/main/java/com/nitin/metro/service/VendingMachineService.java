@@ -18,6 +18,9 @@ import java.util.List;
 
 @Service
 public class VendingMachineService {
+
+    static final String STATUS_SUCCESS = "success";
+    static final String STATUS_FAILED = "failed";
     private static final Logger LOGGER = Logger.getLogger(VendingMachineService.class.getName());
 
     @Autowired
@@ -68,11 +71,15 @@ public class VendingMachineService {
 
     }
 
-    public ResponseEntity<Ticket> generateMetroTicket(GenerateTicketRequest generateTicketRequest) {
+    public ResponseEntity<GenerateTicketResponse> generateMetroTicket(GenerateTicketRequest generateTicketRequest) {
         LOGGER.info("API : generateMetroTicket called.");
         Ticket generatedTicket = new Ticket();
+        GenerateTicketResponse generateTicketResponse = new GenerateTicketResponse();
         try {
             List<TicketFare> ticketFareList = ticketFareRepositoryInterface.findByRouteNameAndTicketType(generateTicketRequest.getRouteName(), generateTicketRequest.getTicketType());
+            if (ticketFareList.isEmpty()) {
+               throw new Exception("Invalid Route & Ticket.");
+            }
             TicketFare ticketFare = ticketFareList.get(0);
             if (generateTicketRequest.getPeakHour()) {
                 int newPeakHourFare = (int) (ticketFare.getFare() * 1.50);
@@ -85,12 +92,25 @@ public class VendingMachineService {
             generatedTicket.setPurchaseTime(currentTime);
             generatedTicket.setUserName(generateTicketRequest.getUserName());
             ticketRepositoryInterface.save(generatedTicket);
+            generateTicketResponse.setStatus(STATUS_SUCCESS);
+            generateTicketResponse.setMessage("Ticket generated successfully.");
+            generateTicketResponse.setResult(generatedTicket);
         } catch (Exception e) {
+            generateTicketResponse.setStatus(STATUS_FAILED);
+            generateTicketResponse.setMessage("Error while generating ticket." + e.getMessage());
+            generateTicketResponse.setResult(generatedTicket);
             LOGGER.severe("API : generateMetroTicket : Error : " + e.getMessage());
         }
 
         LOGGER.info("API : generateMetroTicket Fetched successfully.");
-        return new ResponseEntity<>(generatedTicket, HttpStatus.OK);
+        return new ResponseEntity<>(generateTicketResponse, HttpStatus.OK);
 
+    }
+
+    public ResponseEntity<List<String>> getAllTicketsUsers() {
+        LOGGER.info("API : getAllTicketsUsers called.");
+        List<String> users = ticketRepositoryInterface.findUsers();
+        LOGGER.info("API : getAllTicketsUsers fetched successfully.");
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

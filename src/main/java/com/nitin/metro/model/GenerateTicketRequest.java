@@ -9,5 +9,4 @@ public class GenerateTicketRequest {
     private String routeName;
     private String ticketType;
     private Boolean peakHour;
-
 }
