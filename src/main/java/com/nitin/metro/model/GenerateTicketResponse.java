@@ -8,4 +8,5 @@ public class GenerateTicketResponse {
     private String status;
     private String message;
     private Object result;
+
 }
