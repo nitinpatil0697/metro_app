@@ -50,7 +50,4 @@ public class VendingMachineController {
     {
         return vendingMachineService.generateMetroTicket(generateTicketRequest);
     }
-
-
-
 }
