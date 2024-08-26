@@ -1,6 +1,8 @@
 package com.nitin.metro.controller;
 
+import com.nitin.metro.api.request.LoginRequest;
 import com.nitin.metro.api.request.RegisterRequest;
+import com.nitin.metro.api.response.LoginResponse;
 import com.nitin.metro.api.response.RegisterResponse;
 import com.nitin.metro.model.user.User;
 import com.nitin.metro.service.UserService;
@@ -22,6 +24,12 @@ public class UserController {
         return userService.registerUser(registerRequest);
     }
 
+    @PostMapping("login")
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
+        return userService.loginUser(loginRequest);
+    }
+
+
     @GetMapping("allUsers")
     public ResponseEntity<List<User>> allRegisteredUsers() {
         return userService.getAllUsers();
@@ -36,5 +44,5 @@ public class UserController {
     public ResponseEntity<User> getUserProfile(@PathVariable String email) {
         return userService.getByEmailByProfile(email);
     }
-    
+
 }
