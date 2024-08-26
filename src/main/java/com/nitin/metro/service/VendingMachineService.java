@@ -1,16 +1,20 @@
 package com.nitin.metro.service;
 
-import com.nitin.metro.Repository.RouteRepositoryInterface;
-import com.nitin.metro.Repository.StationRepositoryInterface;
-import com.nitin.metro.Repository.TicketFareRepositoryInterface;
-import com.nitin.metro.Repository.TicketRepositoryInterface;
-import com.nitin.metro.model.*;
+import com.nitin.metro.Repository.vendingMachine.RouteRepositoryInterface;
+import com.nitin.metro.Repository.vendingMachine.StationRepositoryInterface;
+import com.nitin.metro.Repository.vendingMachine.TicketFareRepositoryInterface;
+import com.nitin.metro.Repository.vendingMachine.TicketRepositoryInterface;
+import com.nitin.metro.api.request.GenerateTicketRequest;
+import com.nitin.metro.api.response.GenerateTicketResponse;
+import com.nitin.metro.model.vendingMachine.MetroStation;
+import com.nitin.metro.model.vendingMachine.Route;
+import com.nitin.metro.model.vendingMachine.Ticket;
+import com.nitin.metro.model.vendingMachine.TicketFare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.logging.Logger;
 

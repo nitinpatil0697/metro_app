@@ -1,4 +1,4 @@
-package com.nitin.metro.model;
+package com.nitin.metro.api.request;
 
 import lombok.Data;
 

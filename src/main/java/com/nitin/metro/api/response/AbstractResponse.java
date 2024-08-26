@@ -1,12 +1,10 @@
-package com.nitin.metro.model;
+package com.nitin.metro.api.response;
 
 import lombok.Data;
 
 @Data
-public class GenerateTicketResponse {
-
+public class AbstractResponse {
     private String status;
     private String message;
     private Object result;
-
 }

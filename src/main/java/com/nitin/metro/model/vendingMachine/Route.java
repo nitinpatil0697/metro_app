@@ -1,4 +1,4 @@
-package com.nitin.metro.model;
+package com.nitin.metro.model.vendingMachine;
 
 import jakarta.persistence.*;
 import lombok.Data;

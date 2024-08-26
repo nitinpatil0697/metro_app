@@ -1,6 +1,11 @@
 package com.nitin.metro.controller;
 
-import com.nitin.metro.model.*;
+import com.nitin.metro.api.request.GenerateTicketRequest;
+import com.nitin.metro.api.response.GenerateTicketResponse;
+import com.nitin.metro.model.vendingMachine.MetroStation;
+import com.nitin.metro.model.vendingMachine.Route;
+import com.nitin.metro.model.vendingMachine.Ticket;
+import com.nitin.metro.model.vendingMachine.TicketFare;
 import com.nitin.metro.service.VendingMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

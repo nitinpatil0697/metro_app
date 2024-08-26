@@ -1,6 +1,6 @@
-package com.nitin.metro.Repository;
+package com.nitin.metro.Repository.vendingMachine;
 
-import com.nitin.metro.model.TicketFare;
+import com.nitin.metro.model.vendingMachine.TicketFare;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
