@@ -36,4 +36,5 @@ public class UserController {
     public ResponseEntity<User> getUserProfile(@PathVariable String email) {
         return userService.getByEmailByProfile(email);
     }
+    
 }
