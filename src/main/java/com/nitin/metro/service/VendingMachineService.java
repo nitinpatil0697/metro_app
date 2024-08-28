@@ -39,6 +39,9 @@ public class VendingMachineService {
     @Autowired
     TicketFareRepositoryInterface ticketFareRepositoryInterface;
 
+    /**
+     * To get All the Users
+     */
     public ResponseEntity<List<Route>> getAllRoutes() {
         LOGGER.info("API : getAllRoutes called.");
         List<Route> routeData = routeRepositoryInterface.findAll();
@@ -46,6 +49,9 @@ public class VendingMachineService {
         return new ResponseEntity<>(routeData, HttpStatus.OK);
     }
 
+    /**
+     * To get All the Tickets
+     */
     public ResponseEntity<List<Ticket>> getAllTickets() {
         LOGGER.info("API : getAllTickets called.");
         List<Ticket> ticketData = ticketRepositoryInterface.findAll();
@@ -53,6 +59,9 @@ public class VendingMachineService {
         return new ResponseEntity<>(ticketData, HttpStatus.OK);
     }
 
+    /**
+     * To get All the Stations
+     */
     public ResponseEntity<List<MetroStation>> getAllStations() {
         LOGGER.info("API : getAllStations called.");
         List<MetroStation> stationData = stationRepositoryInterface.findAll();
@@ -60,6 +69,9 @@ public class VendingMachineService {
         return new ResponseEntity<>(stationData, HttpStatus.OK);
     }
 
+    /**
+     * To get All the Ticket Fares
+     */
     public ResponseEntity<List<TicketFare>> getAllTicketFares() {
         LOGGER.info("API : getAllTicketFares called.");
         List<TicketFare> ticketFareData = ticketFareRepositoryInterface.findAll();
@@ -67,6 +79,9 @@ public class VendingMachineService {
         return new ResponseEntity<>(ticketFareData, HttpStatus.OK);
     }
 
+    /**
+     * All the Tickets by UserName
+     */
     public ResponseEntity<List<Ticket>> getAllTicketsByUserName(String userName) {
         LOGGER.info("API : getAllTickets called.");
         List<Ticket> userPurchasedTicket = ticketRepositoryInterface.findByUserName(userName);
@@ -75,6 +90,9 @@ public class VendingMachineService {
 
     }
 
+    /**
+     * To generate Metro ticket
+     */
     public ResponseEntity<GenerateTicketResponse> generateMetroTicket(GenerateTicketRequest generateTicketRequest) {
         LOGGER.info("API : generateMetroTicket called.");
         Ticket generatedTicket = new Ticket();
@@ -111,6 +129,9 @@ public class VendingMachineService {
 
     }
 
+    /**
+     * To get All Tickets Users
+     */
     public ResponseEntity<List<String>> getAllTicketsUsers() {
         LOGGER.info("API : getAllTicketsUsers called.");
         List<String> users = ticketRepositoryInterface.findUsers();

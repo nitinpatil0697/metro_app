@@ -20,7 +20,7 @@ import static java.util.Objects.*;
 
 @Service
 public class UserService {
-    private static final Logger LOGGER = Logger.getLogger(VendingMachineService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
     @Autowired
     UserRepository userRepository;
