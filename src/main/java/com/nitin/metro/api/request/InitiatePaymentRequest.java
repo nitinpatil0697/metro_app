@@ -5,7 +5,16 @@ import lombok.Data;
 
 @Data
 public class InitiatePaymentRequest {
-    private Integer amount;
+    private Long amount;
     private String currency;
     private Ticket ticketDetails;
+
+    @Override
+    public String toString() {
+        return "InitiatePaymentRequest{" +
+                "amount=" + amount +
+                ", currency='" + currency + '\'' +
+                ", ticketDetails=" + ticketDetails +
+                '}';
+    }
 }

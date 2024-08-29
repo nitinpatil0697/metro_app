@@ -20,7 +20,7 @@ public class PaymentController {
     PaymentService paymentService;
 
     @PostMapping("initiate")
-    public ResponseEntity<Map<String,String>> initiatePayment(@RequestBody InitiatePaymentRequest initiatePaymentRequest) throws StripeException {
+    public ResponseEntity<Map<String,Object>> initiatePayment(@RequestBody InitiatePaymentRequest initiatePaymentRequest) throws StripeException {
         return paymentService.initiatePayment(initiatePaymentRequest);
     }
 
