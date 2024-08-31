@@ -50,6 +50,8 @@ public class UserService {
             newUser.setCreatedAt(currentDateTime);
             newUser.setEnabled(true);
             newUser.setRole(AppConstants.ROLE_USER);
+            newUser.setAddress(registerRequest.getAddress());
+            newUser.setPhone(registerRequest.getPhone());
             userRepository.save(newUser);
 
             registerResponse.setStatus(AppConstants.SUCCESS);

@@ -1,10 +1,8 @@
 package com.nitin.metro.model.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import com.nitin.metro.model.user.Address;
 
 import java.time.LocalDateTime;
 
@@ -23,4 +21,6 @@ public class User {
     private String role;
     private LocalDateTime createdAt;
     private Boolean enabled;
+    @Embedded
+    private Address address;
 }
