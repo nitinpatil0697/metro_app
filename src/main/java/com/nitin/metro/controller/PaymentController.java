@@ -1,14 +1,12 @@
 package com.nitin.metro.controller;
 
+import com.nitin.metro.api.request.ConfirmPayment;
 import com.nitin.metro.api.request.InitiatePaymentRequest;
 import com.nitin.metro.service.PaymentService;
 import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,4 +22,14 @@ public class PaymentController {
         return paymentService.initiatePayment(initiatePaymentRequest);
     }
 
+    @PostMapping("confirm")
+    public String confirmPayment(@RequestBody ConfirmPayment confirmPayment) {
+        return paymentService.confirmPayment(confirmPayment);
+    }
+
+    @GetMapping("transaction/{ticketId}")
+    public String getPaymentId(@PathVariable Integer ticketId) {
+        return paymentService.getPaymentId(ticketId);
+
+    }
 }

@@ -15,10 +15,11 @@ public class PaymentTransactionLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int paymentId;
+    private String paymentId;
     private Boolean paymentStatus;
     private String transactionId;
     private Date transactionDate;
     private long transactionAmount;
     private int ticketId;
+    private String confirmResponse;
 }
