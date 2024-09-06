@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface TicketFareRepositoryInterface extends JpaRepository<TicketFare, Integer> {
 
-    List<TicketFare> findByRouteNameAndTicketType(String routeName, String ticketType);
+    List<TicketFare> findByRouteNameAndTicketTypeAndStartCodeAndEndCode(
+            String routeName, String ticketType, String startCode, String endCode);
 
     @Query("SELECT tf.fare FROM TicketFare tf WHERE tf.startCode = :startCode AND tf.endCode = :endCode")
     Integer findByStartCodeAndEndCode(@Param("startCode") String startCode, @Param("endCode") String endCode);

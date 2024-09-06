@@ -8,5 +8,7 @@ public class GenerateTicketRequest {
     private String userName;
     private String routeName;
     private String ticketType;
+    private String startStation;
+    private String endStation;
     private Boolean peakHour;
 }

@@ -137,6 +137,7 @@ public class UserService implements UserDetailsService {
                 final String jwt = jwtUtil.generateToken(userData);
                 result.put("token", jwt);
                 result.put("name", userData.getFirstName());
+                result.put("userEmail", userData.getEmail());
                 loginResponse.setResult(result);
             }
         }

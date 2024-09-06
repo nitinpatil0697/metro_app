@@ -100,7 +100,11 @@ public class VendingMachineService {
         Ticket generatedTicket = new Ticket();
         GenerateTicketResponse generateTicketResponse = new GenerateTicketResponse();
         try {
-            List<TicketFare> ticketFareList = ticketFareRepositoryInterface.findByRouteNameAndTicketType(generateTicketRequest.getRouteName(), generateTicketRequest.getTicketType());
+            List<TicketFare> ticketFareList = ticketFareRepositoryInterface.
+                    findByRouteNameAndTicketTypeAndStartCodeAndEndCode(
+                            generateTicketRequest.getRouteName(), generateTicketRequest.getTicketType(),
+                            generateTicketRequest.getStartStation(), generateTicketRequest.getEndStation()
+                            );
             if (ticketFareList.isEmpty()) {
                throw new Exception("Invalid Route & Ticket.");
             }
