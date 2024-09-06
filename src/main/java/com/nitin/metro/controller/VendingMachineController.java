@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("vendingMachine")
@@ -51,8 +52,21 @@ public class VendingMachineController {
     }
 
     @PostMapping("generateTicket")
-    public ResponseEntity<GenerateTicketResponse> generateTicket(@RequestBody GenerateTicketRequest generateTicketRequest)
-    {
+    public ResponseEntity<GenerateTicketResponse> generateTicket(@RequestBody GenerateTicketRequest generateTicketRequest) {
         return vendingMachineService.generateMetroTicket(generateTicketRequest);
     }
+
+    @GetMapping("route/{routeName}")
+    public ResponseEntity<Map<String, String>> getStationsByRouteName(@PathVariable String routeName) {
+        return vendingMachineService.getStationsByRoute(routeName);
+    }
+
+    @GetMapping("calculatefare")
+    public ResponseEntity<Integer> getStationsByRouteName(
+            @RequestParam("start") String startCode,
+            @RequestParam("end") String endCode) {
+        return vendingMachineService.getFareByStations(startCode, endCode);
+    }
+
+
 }

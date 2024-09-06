@@ -40,9 +40,9 @@ public class UserController {
         return userService.getEnabledUsers();
     }
 
-    @GetMapping("profile/{email}")
-    public ResponseEntity<User> getUserProfile(@PathVariable String email) {
-        return userService.getByEmailByProfile(email);
-    }
+//    @GetMapping("profile/{email}")
+//    public ResponseEntity<User> getUserProfile(@PathVariable String email) {
+//        return userService.getByEmailByProfile(email);
+//    }
 
 }

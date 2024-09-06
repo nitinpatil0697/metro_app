@@ -20,4 +20,6 @@ public class TicketFare {
     private Date slotStart;
     private Date slotEnd;
     private int fare;
+    private String startCode;
+    private String endCode;
 }

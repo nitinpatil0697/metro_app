@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import java.util.List;
@@ -137,5 +139,27 @@ public class VendingMachineService {
         List<String> users = ticketRepositoryInterface.findUsers();
         LOGGER.info("API : getAllTicketsUsers fetched successfully.");
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Map<String, String>> getStationsByRoute(String route) {
+        LOGGER.info("API : getStationsByRoute called.");
+        Map<String, String> stationMap = new HashMap<>();
+        List<Route> routes = routeRepositoryInterface.findByName(route);
+
+        for (Route routeData : routes) {
+            List<MetroStation> stations = routeData.getStations();
+            for (MetroStation station : stations) {
+                stationMap.put(station.getCode(), station.getName());
+            }
+        }
+
+        LOGGER.info("API : getStationsByRoute fetched successfully.");
+        return new ResponseEntity<>(stationMap, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> getFareByStations(String startCode, String endCode) {
+        Integer routeFare = ticketFareRepositoryInterface.findByStartCodeAndEndCode(startCode, endCode);
+        LOGGER.info("API : getFareByStations fetched successfully." + routeFare);
+        return new ResponseEntity<>(routeFare, HttpStatus.OK);
     }
 }

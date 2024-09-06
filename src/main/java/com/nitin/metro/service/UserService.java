@@ -8,10 +8,15 @@ import com.nitin.metro.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.nitin.metro.constants.AppConstants;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 import com.nitin.metro.Repository.user.UserRepository;
@@ -19,11 +24,14 @@ import com.nitin.metro.Repository.user.UserRepository;
 import static java.util.Objects.*;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    JwtUtil jwtUtil;
 
     /**
      * To Register User
@@ -101,11 +109,11 @@ public class UserService {
     /**
      * Get Email by profile
      */
-    public ResponseEntity<User> getByEmailByProfile(String email) {
+    public User getByEmailByProfile(String email) {
         LOGGER.info("API : getEnabledUsers called");
         User user = userRepository.findByEmail(email);
         LOGGER.info("API : getEnabledUsers fetched successfully");
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return user;
     }
 
     /**
@@ -125,8 +133,19 @@ public class UserService {
             } else {
                 loginResponse.setStatus(AppConstants.SUCCESS);
                 loginResponse.setMessage("User logged in successfully");
+                HashMap<String, String> result = new HashMap<>();
+                final String jwt = jwtUtil.generateToken(userData);
+                result.put("token", jwt);
+                result.put("name", userData.getFirstName());
+                loginResponse.setResult(result);
             }
         }
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 }
