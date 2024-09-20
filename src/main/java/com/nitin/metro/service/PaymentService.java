@@ -1,8 +1,8 @@
 package com.nitin.metro.service;
 
-import com.nitin.metro.Repository.Payment.PaymentTransactionLogRepositoryInterface;
-import com.nitin.metro.Repository.user.UserRepository;
-import com.nitin.metro.Repository.vendingMachine.TicketRepositoryInterface;
+import com.nitin.metro.repository.Payment.PaymentTransactionLogRepositoryInterface;
+import com.nitin.metro.repository.user.UserRepository;
+import com.nitin.metro.repository.vendingMachine.TicketRepositoryInterface;
 import com.nitin.metro.api.request.ConfirmPayment;
 import com.nitin.metro.api.request.InitiatePaymentRequest;
 import com.nitin.metro.constants.AppConstants;
@@ -19,22 +19,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.logging.Logger;
-import com.nitin.metro.api.request.PaymentRequest;
 
 @Service
 public class PaymentService {
 
-    private final UserService userService;
+    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
     private final UserRepository userRepository;
-    private final TicketRepositoryInterface ticketRepositoryInterface;
     private final PaymentTransactionLogRepositoryInterface paymentTransactionLogRepositoryInterface;
-    PaymentRequest paymentRequest;
-    private static final Logger LOGGER = Logger.getLogger(PaymentService.class.getName());
+
 
     public PaymentService(UserService userService, UserRepository userRepository, TicketRepositoryInterface ticketRepositoryInterface, PaymentTransactionLogRepositoryInterface paymentTransactionLogRepositoryInterface) {
-        this.userService = userService;
         this.userRepository = userRepository;
-        this.ticketRepositoryInterface = ticketRepositoryInterface;
         this.paymentTransactionLogRepositoryInterface = paymentTransactionLogRepositoryInterface;
     }
 
@@ -68,6 +63,7 @@ public class PaymentService {
                 paymentTransactionLog.setTransactionDate(currentDate);
                 paymentTransactionLog.setPaymentId("pay" + UUID.randomUUID().toString().replace("-", ""));
                 paymentTransactionLog.setTicketId(initiatePaymentRequest.getTicketDetails().getId());
+                paymentTransactionLog.setEmail(reqUser.getEmail());
                 paymentTransactionLogRepositoryInterface.save(paymentTransactionLog);
             }
 
@@ -102,6 +98,13 @@ public class PaymentService {
         paymentTransactionLog.setPaymentStatus(confirmPayment.getPaymentCapture());
         paymentTransactionLog.setConfirmResponse(confirmPayment.getPaymentConfirmResponse());
         paymentTransactionLogRepositoryInterface.save(paymentTransactionLog);
+
+        Map<String, String> emailPaymentData = new HashMap<>();
+        emailPaymentData.put("email", paymentTransactionLog.getEmail());
+        emailPaymentData.put("message", "Transaction Success");
+        emailPaymentData.put("payment_capture", "success");
+        LOGGER.info("Triggering email payment notification");
+
         LOGGER.info("confirmPayment : Updated payment transaction log successfully.");
         return "Successfully confirmed payment: ";
     }
