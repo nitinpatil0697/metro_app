@@ -99,12 +99,6 @@ public class PaymentService {
         paymentTransactionLog.setConfirmResponse(confirmPayment.getPaymentConfirmResponse());
         paymentTransactionLogRepositoryInterface.save(paymentTransactionLog);
 
-        Map<String, String> emailPaymentData = new HashMap<>();
-        emailPaymentData.put("email", paymentTransactionLog.getEmail());
-        emailPaymentData.put("message", "Transaction Success");
-        emailPaymentData.put("payment_capture", "success");
-        LOGGER.info("Triggering email payment notification");
-
         LOGGER.info("confirmPayment : Updated payment transaction log successfully.");
         return "Successfully confirmed payment: ";
     }
