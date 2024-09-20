@@ -1,4 +1,4 @@
-package com.nitin.metro.Repository.vendingMachine;
+package com.nitin.metro.repository.vendingMachine;
 
 import com.nitin.metro.model.vendingMachine.Route;
 import org.springframework.data.jpa.repository.JpaRepository;

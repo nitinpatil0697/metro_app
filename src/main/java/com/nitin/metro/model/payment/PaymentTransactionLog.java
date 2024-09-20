@@ -22,4 +22,5 @@ public class PaymentTransactionLog {
     private long transactionAmount;
     private int ticketId;
     private String confirmResponse;
+    private String email;
 }

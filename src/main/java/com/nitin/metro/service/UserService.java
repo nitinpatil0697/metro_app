@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
-import com.nitin.metro.Repository.user.UserRepository;
+import com.nitin.metro.repository.user.UserRepository;
 
 import static java.util.Objects.*;
 

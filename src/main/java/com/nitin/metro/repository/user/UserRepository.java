@@ -1,4 +1,4 @@
-package com.nitin.metro.Repository.user;
+package com.nitin.metro.repository.user;
 
 import com.nitin.metro.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

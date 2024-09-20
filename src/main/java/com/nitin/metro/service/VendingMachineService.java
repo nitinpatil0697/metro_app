@@ -1,9 +1,9 @@
 package com.nitin.metro.service;
 
-import com.nitin.metro.Repository.vendingMachine.RouteRepositoryInterface;
-import com.nitin.metro.Repository.vendingMachine.StationRepositoryInterface;
-import com.nitin.metro.Repository.vendingMachine.TicketFareRepositoryInterface;
-import com.nitin.metro.Repository.vendingMachine.TicketRepositoryInterface;
+import com.nitin.metro.repository.vendingMachine.RouteRepositoryInterface;
+import com.nitin.metro.repository.vendingMachine.StationRepositoryInterface;
+import com.nitin.metro.repository.vendingMachine.TicketFareRepositoryInterface;
+import com.nitin.metro.repository.vendingMachine.TicketRepositoryInterface;
 import com.nitin.metro.api.request.GenerateTicketRequest;
 import com.nitin.metro.api.response.GenerateTicketResponse;
 import com.nitin.metro.model.vendingMachine.MetroStation;

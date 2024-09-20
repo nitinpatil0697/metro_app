@@ -1,10 +1,7 @@
-package com.nitin.metro.Repository.Payment;
+package com.nitin.metro.repository.Payment;
 
 import com.nitin.metro.model.payment.PaymentTransactionLog;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
