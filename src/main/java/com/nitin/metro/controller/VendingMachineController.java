@@ -1,6 +1,7 @@
 package com.nitin.metro.controller;
 
 import com.nitin.metro.api.request.GenerateTicketRequest;
+import com.nitin.metro.api.response.GeneralResponse;
 import com.nitin.metro.api.response.GenerateTicketResponse;
 import com.nitin.metro.model.vendingMachine.MetroStation;
 import com.nitin.metro.model.vendingMachine.Route;
@@ -66,6 +67,12 @@ public class VendingMachineController {
             @RequestParam("start") String startCode,
             @RequestParam("end") String endCode) {
         return vendingMachineService.getFareByStations(startCode, endCode);
+    }
+
+    @PutMapping("updateTicketFare/{ticketId}")
+    public ResponseEntity<GeneralResponse> updateTicketFare(
+            @PathVariable Integer ticketId, @RequestBody TicketFare updateTicketFare) {
+        return vendingMachineService.updateTicketFare(ticketId, updateTicketFare);
     }
 
 

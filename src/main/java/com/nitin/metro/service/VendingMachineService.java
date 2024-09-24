@@ -1,5 +1,7 @@
 package com.nitin.metro.service;
 
+import com.nitin.metro.api.response.GeneralResponse;
+import com.nitin.metro.constants.AppConstants;
 import com.nitin.metro.repository.vendingMachine.RouteRepositoryInterface;
 import com.nitin.metro.repository.vendingMachine.StationRepositoryInterface;
 import com.nitin.metro.repository.vendingMachine.TicketFareRepositoryInterface;
@@ -15,12 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
-
-import java.util.List;
 
 @Service
 public class VendingMachineService {
@@ -165,5 +163,27 @@ public class VendingMachineService {
         Integer routeFare = ticketFareRepositoryInterface.findByStartCodeAndEndCode(startCode, endCode);
         LOGGER.info("API : getFareByStations fetched successfully." + routeFare);
         return new ResponseEntity<>(routeFare, HttpStatus.OK);
+    }
+
+    public ResponseEntity<GeneralResponse> updateTicketFare(Integer ticketId , TicketFare updatedTicketFare) {
+        GeneralResponse response = new GeneralResponse();
+        Optional<TicketFare> ticketFares = ticketFareRepositoryInterface.findById(ticketId);
+
+        if (ticketFares.isPresent()) {
+            TicketFare existingFare = ticketFares.get();
+            existingFare.setFare(updatedTicketFare.getFare());
+            existingFare.setTicketType(updatedTicketFare.getTicketType());
+            existingFare.setStartCode(updatedTicketFare.getStartCode());
+            existingFare.setEndCode(updatedTicketFare.getEndCode());
+            existingFare.setFare(updatedTicketFare.getFare());
+
+            ticketFareRepositoryInterface.save(existingFare);
+        }
+        Optional<TicketFare> updatedTicketFares = ticketFareRepositoryInterface.findById(ticketId);
+        TicketFare updatedTicket = updatedTicketFares.get();
+        response.setStatus(AppConstants.SUCCESS);
+        response.setMessage("Updated Data successfully");
+        response.setResult(updatedTicket);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
