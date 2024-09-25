@@ -2,9 +2,11 @@ package com.nitin.metro.service;
 
 import com.nitin.metro.api.request.LoginRequest;
 import com.nitin.metro.api.request.RegisterRequest;
+import com.nitin.metro.api.response.GeneralResponse;
 import com.nitin.metro.api.response.LoginResponse;
 import com.nitin.metro.api.response.RegisterResponse;
 import com.nitin.metro.model.user.User;
+import com.nitin.metro.model.vendingMachine.TicketFare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import com.nitin.metro.repository.user.UserRepository;
 
@@ -149,5 +152,24 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
+    }
+
+    public ResponseEntity<GeneralResponse> updateUserDetails(Long userId , User userdata) {
+        GeneralResponse response = new GeneralResponse();
+        Optional<User> existingUsers = userRepository.findById(userId);
+        if (existingUsers.isPresent()) {
+            User existingUser = existingUsers.get();
+            existingUser.setFirstName(userdata.getFirstName());
+            existingUser.setLastName(userdata.getLastName());
+            existingUser.setEmail(userdata.getEmail());
+            existingUser.setRole(userdata.getRole());
+            existingUser.setPhone(userdata.getPhone());
+            existingUser.setEnabled(userdata.getEnabled());
+            userRepository.save(existingUser);
+        }
+        response.setStatus(AppConstants.SUCCESS);
+        response.setMessage("Updated Data successfully");
+        response.setResult(userdata);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

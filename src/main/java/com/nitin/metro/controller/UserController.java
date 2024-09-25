@@ -2,9 +2,11 @@ package com.nitin.metro.controller;
 
 import com.nitin.metro.api.request.LoginRequest;
 import com.nitin.metro.api.request.RegisterRequest;
+import com.nitin.metro.api.response.GeneralResponse;
 import com.nitin.metro.api.response.LoginResponse;
 import com.nitin.metro.api.response.RegisterResponse;
 import com.nitin.metro.model.user.User;
+import com.nitin.metro.model.vendingMachine.TicketFare;
 import com.nitin.metro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +46,11 @@ public class UserController {
 //    public ResponseEntity<User> getUserProfile(@PathVariable String email) {
 //        return userService.getByEmailByProfile(email);
 //    }
+
+    @PutMapping("updateUser/{userId}")
+    public ResponseEntity<GeneralResponse> updateUserDetails(
+            @PathVariable Long userId, @RequestBody User userData) {
+        return userService.updateUserDetails(userId, userData);
+    }
 
 }
