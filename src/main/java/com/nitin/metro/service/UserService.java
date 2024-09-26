@@ -172,4 +172,13 @@ public class UserService implements UserDetailsService {
         response.setResult(userdata);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    public ResponseEntity<GeneralResponse> deleteUserById(Long userId) {
+        GeneralResponse response = new GeneralResponse();
+        userRepository.deleteById(userId);
+        response.setStatus(AppConstants.SUCCESS);
+        response.setMessage("Updated Data successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
+
