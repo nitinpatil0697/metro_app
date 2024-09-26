@@ -75,5 +75,8 @@ public class VendingMachineController {
         return vendingMachineService.updateTicketFare(ticketId, updateTicketFare);
     }
 
-
+    @DeleteMapping("updateTicketFare/{ticketFareId}")
+    public ResponseEntity<GeneralResponse> deleteTicketFare(@PathVariable Integer ticketFareId) {
+        return vendingMachineService.deleteTicketFare(ticketFareId);
+    }
 }

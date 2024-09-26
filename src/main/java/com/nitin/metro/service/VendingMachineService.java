@@ -186,4 +186,12 @@ public class VendingMachineService {
         response.setResult(updatedTicket);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    public ResponseEntity<GeneralResponse> deleteTicketFare(Integer ticketFareId) {
+        GeneralResponse response = new GeneralResponse();
+        ticketFareRepositoryInterface.deleteById(ticketFareId);
+        response.setStatus(AppConstants.SUCCESS);
+        response.setMessage("Updated Data successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
