@@ -1,5 +1,6 @@
 package com.nitin.metro.service;
 
+import com.nitin.metro.api.response.GeneralResponse;
 import com.nitin.metro.repository.Payment.PaymentTransactionLogRepositoryInterface;
 import com.nitin.metro.repository.user.UserRepository;
 import com.nitin.metro.repository.vendingMachine.TicketRepositoryInterface;
@@ -106,5 +107,15 @@ public class PaymentService {
     public String getPaymentId(Integer ticketId) {
         PaymentTransactionLog paymentTransactionLog = paymentTransactionLogRepositoryInterface.findByTicketId(ticketId);
         return paymentTransactionLog.getPaymentId();
+    }
+
+    public ResponseEntity<GeneralResponse> getAllPaymentTransactions() {
+        List<PaymentTransactionLog> paymentTransactionLog =
+                paymentTransactionLogRepositoryInterface.findAll();
+        GeneralResponse generalResponse = new GeneralResponse();
+        generalResponse.setStatus(AppConstants.SUCCESS);
+        generalResponse.setMessage("All payment transactions fetched successfully.");
+        generalResponse.setResult(paymentTransactionLog);
+        return new ResponseEntity<>(generalResponse, HttpStatus.OK);
     }
 }

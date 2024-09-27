@@ -2,6 +2,7 @@ package com.nitin.metro.controller;
 
 import com.nitin.metro.api.request.ConfirmPayment;
 import com.nitin.metro.api.request.InitiatePaymentRequest;
+import com.nitin.metro.api.response.GeneralResponse;
 import com.nitin.metro.service.PaymentService;
 import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class PaymentController {
     public String getPaymentId(@PathVariable Integer ticketId) {
         return paymentService.getPaymentId(ticketId);
 
+    }
+
+    @GetMapping("transaction/all")
+    public ResponseEntity<GeneralResponse> getAllPaymentTransactions() {
+        return paymentService.getAllPaymentTransactions();
     }
 }
