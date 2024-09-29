@@ -15,4 +15,6 @@ public class MetroStation {
     private int id;
     private String name;
     private String code;
+    private String latitude;
+    private String longitude;
 }
