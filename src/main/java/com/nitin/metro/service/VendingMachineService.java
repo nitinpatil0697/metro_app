@@ -159,6 +159,12 @@ public class VendingMachineService {
         return new ResponseEntity<>(stationMap, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param startCode
+     * @param endCode
+     * @return
+     */
     public ResponseEntity<Integer> getFareByStations(String startCode, String endCode) {
         Integer routeFare = ticketFareRepositoryInterface.findByStartCodeAndEndCode(startCode, endCode);
         LOGGER.info("API : getFareByStations fetched successfully." + routeFare);
